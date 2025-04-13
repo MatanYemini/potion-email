@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  neo4j:
+    image: neo4j:4.4.27 # Use a specific version known to be more stable on ARM64
+    platform: linux/amd64 # Force x86_64 container with emulation on ARM
+    container_name: neo4j-local-analyzer
+    ports:
+      - "7474:7474" # HTTP
+      - "7687:7687" # Bolt
+    environment:
+      - NEO4J_AUTH=none # Disable authentication
+      - NEO4J_ACCEPT_LICENSE_AGREEMENT=yes
+    volumes:
+      - neo4j_data:/data
+      - neo4j_logs:/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:7474"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  neo4j_data:
+  neo4j_logs:

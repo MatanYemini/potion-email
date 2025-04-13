@@ -172,3 +172,15 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Google Cloud credentials
+service_account_key.json
+credentials.json
+
+# Neo4j credentials
+neo4j_auth.txt
+
+# Gmail credentials
+gmail_auth.txt
+token.json
+token.pickle
